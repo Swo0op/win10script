@@ -30,13 +30,13 @@ $tweaks = @(
 	
 	### Chris Titus Tech Additions
 	"TitusRegistryTweaks",
-	"InstallTitusProgs", #REQUIRED FOR OTHER PROGRAM INSTALLS!
+	"InstallChocoAndOndOShutUP", #REQUIRED FOR OTHER PROGRAM INSTALLS!
 	"Install7Zip",
 	"InstallNotepadplusplus",
-	"InstallIrfanview",
+	"InstallXNViewMP",
 	"InstallVLC",
 	"InstallAdobe",
-	"InstallBrave",
+	"InstallFirefox",
 	"ChangeDefaultApps",
 
 	### Windows Apps
@@ -234,7 +234,7 @@ Function TitusRegistryTweaks {
 	If (!(Get-ItemProperty $UpdatesPath  DeferQualityUpdatesPeriodInDays)) { New-ItemProperty -Path $UpdatesPath -Name "ActiveHoursStart" -Type DWord -Value 8 }
 	Set-ItemProperty -Path $UpdatesPath -Name "ActiveHoursStart" -Type DWord -Value 8
 }
-Function InstallTitusProgs {
+Function InstallChocoAndOndOShutUP {
 	Write-Output "Installing Chocolatey"
 	Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 	choco install chocolatey-core.extension -y
@@ -246,11 +246,13 @@ Function InstallTitusProgs {
 }
 
 Function InstallAdobe {
-	Show-Choco-Menu -Title "Do you want to install Adobe Acrobat Reader?" -ChocoInstall "adobereader"
+	Show-Choco-Menu -Title "Soll der Acrobat Reader installiert werden?" -ChocoInstall "adobereader"
 }
 
-Function InstallBrave {
-	do
+Function InstallFirefox {
+	Show-Choco-Menu -Title "Soll der Firefox Browser installiert werden?" -ChocoInstall "firefox"
+	#Alter Code von original Script für Brave Browser Installation
+	<#do
  {
     Clear-Host
     Write-Host "================ Do You Want to Install Brave Browser? ================"
@@ -269,6 +271,7 @@ Function InstallBrave {
     }
  }
  until ($selection -match "y" -or $selection -match "n" -or $selection -match "q")
+ #>
 	
 }
 Function Install7Zip {
@@ -283,8 +286,8 @@ Function InstallVLC {
 	Show-Choco-Menu -Title "Do you want to install VLC?" -ChocoInstall "vlc"
 }
 
-Function InstallIrfanview {
-	Show-Choco-Menu -Title "Do you want to install Irfanview?" -ChocoInstall "irfanview"
+Function InstallXNViewMP {
+	Show-Choco-Menu -Title "Do you want to install XNViewMP?" -ChocoInstall "xnviewmp"
 }
 
 Function ChangeDefaultApps {
